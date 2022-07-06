@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import web3 from "./web3";
+import lottery from "./lottery";
+import { Component } from "react";
 
-function App() {
+class App extends Component{
+  constructor(pros){
+    super(pros);
+    this.state = {
+      manager : '',
+      //這個其實就是物件導向的建構子+Field宣告而已@"@
+    }
+  }
+  
+  async componentDidMount(){
+    const manager = await lottery.methods.manager().call();
+    this.setState({manager});
+  }
+
+
+  render(){
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>Lottery Contract</h2>
+      <p>This Contract is managered by {this.state.manager}</p>
+
     </div>
   );
+  }
+  
 }
 
 export default App;
